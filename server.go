@@ -17,6 +17,21 @@ type coasterHandlers struct {
 	store map[string]Coaster
 }
 
+func (h *coasterHandlers) coasters(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		h.get(w, r)
+		return
+	case "POST":
+		h.post(w, r)
+		return
+	default:
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		w.Write([]byte("method not allowed"))
+		return
+	}
+}
+
 func (h *coasterHandlers) get(w http.ResponseWriter, r *http.Request) {
 	coasters := make([]Coaster, len(h.store))
 
@@ -37,6 +52,8 @@ func (h *coasterHandlers) get(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonBytes)
 
 }
+func (h *coasterHandlers) post(w http.ResponseWriter, r *http.Request) {
+}
 
 func newCoasterHandler() *coasterHandlers {
 	return &coasterHandlers{
@@ -54,9 +71,9 @@ func newCoasterHandler() *coasterHandlers {
 func main() {
 	coasterHandlers := newCoasterHandler()
 
-	http.HandleFunc("/coasters", coasterHandlers.get)
+	http.HandleFunc("/coasters", coasterHandlers.coasters)
 
-	err := http.ListenAndServe(":8090", nil)
+	err := http.ListenAndServe("localhost:8090", nil)
 	if err != nil {
 		panic(err)
 	}
