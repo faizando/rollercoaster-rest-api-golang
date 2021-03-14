@@ -96,15 +96,7 @@ func (h *coasterHandlers) post(w http.ResponseWriter, r *http.Request) {
 
 func newCoasterHandler() *coasterHandlers {
 	return &coasterHandlers{
-		store: map[string]Coaster{
-			"id1": Coaster{
-				ID:           fmt.Sprintf("%d", time.Now().UnixNano()),
-				Name:         "Furry",
-				Manufacturer: "Adidas",
-				InPark:       "ThorpePark",
-				Height:       99,
-			},
-		},
+		store: map[string]Coaster{},
 	}
 }
 func main() {
