@@ -1,6 +1,6 @@
 # Go Roller Coasters REST API
 
-Simple REST API built in GO.
+Simple REST API built in GO without 3rd party dependencies.
 
 Data is only stored in memory, not persistent.
 
